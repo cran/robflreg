@@ -1,0 +1,37 @@
+export(
+"generate.ff.data",
+"get.ff.coeffs", 
+"getPCA", 
+"getPCA.test", 
+"plot_ff_coeffs", 
+"predict_ff_regression", 
+"rob.ff.reg", 
+"rob.out.detect",
+"generate.sf.data",
+"get.sf.coeffs",
+"plot_sf_coeffs",
+"predict_sf_regression",
+"rob.sf.reg"
+)
+
+import(fda)
+import(MASS)
+import(robustbase)
+
+importFrom("graphics", "legend", "lines")
+importFrom("stats", ".getXlevels", "cov", "cov.wt", "dchisq",
+             "integrate", "mahalanobis", "median", "model.matrix",
+             "na.omit", "pchisq", "pnorm", "qchisq", "quantile", "rnorm",
+             "runif", "terms")
+importFrom("utils", "combn")
+importFrom("fda.usc", "Adot")
+importFrom("fda.usc", "fdata")
+importFrom("fda.usc", "depth.mode")
+importFrom("goffda", "r_ou")
+importFrom("pcaPP", "l1median")
+importFrom("pcaPP", "PCAproj")
+importFrom("plot3D", "persp3D")
+importFrom("expm", "sqrtm")
+importFrom("mvtnorm", "rmvnorm")
+importFrom("fda.usc", "inprod.fdata")
+
