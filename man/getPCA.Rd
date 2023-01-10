@@ -8,16 +8,16 @@ This function is used to perform functional principal component analysis.
 getPCA(data, nbasis, ncomp, gp, emodel = c("classical", "robust"))
 }
 \arguments{
-  \item{data}{An \eqn{n \times p}-dimensional data matrix for functional data \eqn{X(s)}, where \eqn{n} denotes the sample size 
+  \item{data}{An \eqn{n \times p}-dimensional data matrix for functional data \eqn{X(s)}, where \eqn{n} denotes the sample size
   and \eqn{p} denotes the number of grid points for \eqn{X(s)}.}
   \item{nbasis}{An integer specifying the number of B-spline basis expansion functions used to approximate the functional principal components.}
   \item{ncomp}{An integer specifying the number of functional principal components to be computed.}
   \item{gp}{A vector containing the grid points for the functional data for \eqn{X(s)}.}
-  \item{emodel}{Method to be used for functional principal component decomposition. Possibilities are "classical"" and "robust".}
+  \item{emodel}{Method to be used for functional principal component decomposition. Possibilities are "classical" and "robust".}
 }
 \details{The functional principal decomposition of a functional data \eqn{X(s)} is given by \deqn{X(s) = \bar{X}(s) + \sum_{k=1}^K \xi_k \psi_k(s),} where \eqn{\bar{X}(s)} is the mean function, \eqn{\psi_k(s)} is the \eqn{k}-th weight function, and \eqn{\xi_k} is the corresponding principal component score which is given by \deqn{\xi_k = \int (X(s) - \bar{X}(s)) \psi_k(s) ds.} When computing the estimated functional principal components, first, the functional data is expressed by a set of B-spline basis expansion. Then, the functional principal components are equal to the principal components extracted from the matrix \eqn{D \varphi^{1/2}}, where \eqn{D} is the matrix of basis expansion coefficients and \eqn{\varphi} is the inner product matrix of the basis functions, i.e., \eqn{\varphi = \int \varphi(s) \varphi^\top(s) ds}. Finally, the \eqn{k}-th weight function is given by \eqn{\psi_k(s) = \varphi^{-1/2} a_k}, where \eqn{a_k} is the \eqn{k}-th eigenvector of the sample covariance matrix of \eqn{D \varphi^{1/2}}.
 
-If \code{emodel = "classical"}, then, the standard functional principal component decomposition is used as given by 
+If \code{emodel = "classical"}, then, the standard functional principal component decomposition is used as given by
 Ramsay and Dalzell (1991).
 
 If \code{emodel = "robust"}, then, the robust principal component algorithm of Hubert, Rousseeuw and Verboven (2002) is used.
@@ -28,6 +28,9 @@ If \code{emodel = "robust"}, then, the robust principal component algorithm of H
 \item{meanScore}{A functional data object for the mean function.}
 \item{bs_basis}{A functional data object for B-spline basis expansion.}
 \item{evalbase}{A matrix of the B-spline basis expansion functions.}
+\item{ncomp}{An integer denoting the computed number of functional principal components. If the input ``\code{ncomp}'' is NULL, then, the output \code{ncomp} equals to the number of functional principal components whose usage results in at least 95\% explained variation.}
+\item{gp}{A vector containing the grid points for the functional data for \eqn{X(s)}.}
+\item{emodel}{A character vector denoting the method used for functional principal component decomposition.}
 }
 \references{
 J. O. Ramsay and C. J. Dalzell (1991) "Some tools for functional data analysis (with discussion)", \emph{Journal of the Royal Statistical Society: Series B}, \bold{53}(3), 539-572.

@@ -1,6 +1,6 @@
 get.ff.coeffs <-
 function(object){
-  
+
   vars <- object$model.details$var.used
   np <- length(vars)
   ncX <- object$model.details$ncompX
@@ -15,19 +15,19 @@ function(object){
     evalx[[i]] <- object$fpca.results$X[[i]]$evalbase
     fcomp_X[[i]] <- object$fpca.results$X[[i]]$PCAcoef$coefs
   }
-  
+
   coeffs = list()
   km = 1
   for(j in 1:np){
     coeffs[[j]] = evalx[[j]] %*% (fcomp_X[[j]] %*% Bhat[km: (km+ncX[j]-1),] %*% t(fcomp_Y)) %*% t(evaly)
-    km = j*ncX[j]+1
+    km = cumsum(ncX)[j]+1
   }
-  
+
   return(list(vars = vars,
               gpY = gpY,
               gpX = gpX,
               coefficients = coeffs))
-    
 
-  
+
+
 }

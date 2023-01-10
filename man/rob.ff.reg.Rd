@@ -3,11 +3,11 @@
 \title{Robust function-on-function regression}
 \description{
 This function is used to perform both classical and robust function-on-function regression model \deqn{
-Y(t) = \sum_{m=1}^M X_m(s) \beta_m(s,t) ds + \epsilon(t),} where \eqn{Y(t)} denotes the functional response, \eqn{X_m(s)} denotes the \eqn{m}-th functional predictor, \eqn{\beta_m(s,t)} denotes the \eqn{m}-th bivariate regression coefficient function, and \eqn{\epsilon(t)} is the error function.
+Y(t) = \sum_{m=1}^M \int X_m(s) \beta_m(s,t) ds + \epsilon(t),} where \eqn{Y(t)} denotes the functional response, \eqn{X_m(s)} denotes the \eqn{m}-th functional predictor, \eqn{\beta_m(s,t)} denotes the \eqn{m}-th bivariate regression coefficient function, and \eqn{\epsilon(t)} is the error function.
 }
 \usage{
-rob.ff.reg(Y, X, model = c("full", "selected"), emodel = c("classical", "robust"), 
- fmodel = c("MCD", "MLTS", "MM", "S", "tau"), nbasisY = NULL, nbasisX = NULL, 
+rob.ff.reg(Y, X, model = c("full", "selected"), emodel = c("classical", "robust"),
+ fmodel = c("MCD", "MLTS", "MM", "S", "tau"), nbasisY = NULL, nbasisX = NULL,
  gpY = NULL, gpX = NULL, ncompY = NULL, ncompX = NULL)
 }
 \arguments{
@@ -16,18 +16,18 @@ rob.ff.reg(Y, X, model = c("full", "selected"), emodel = c("classical", "robust"
   \item{model}{Model to be fitted. Possibilities are "full" and "selected".}
   \item{emodel}{Method to be used for functional principal component decomposition. Possibilities are "classical"" and "robust".}
   \item{fmodel}{Fitting model used to estimate the function-on-function regression model. Possibilities are "MCD", "MLTS", "MM", "S", and "tau".}
-  \item{nbasisY}{An integer value specifying the number of B-spline basis expansion functions to be used to approximate the functional principal components for the response variable \eqn{Y(t)}. If \code{NULL}, then, 20 number of B-spline basis expansion functions are used.}
-  \item{nbasisX}{A vector with length \eqn{M}. Its \eqn{m}-th value denotes the number of B-spline basis expansion functions to be used to approximate the functional principal components for the \eqn{m}-th functional predictor \eqn{X_m(s)}. If \code{NULL}, then, 20 number of B-spline basis expansion functions are used for each functional predictor.}
-  \item{gpY}{A vector containing the grid points of the functional response \eqn{Y(t)}. If \code{NULL}, then \eqn{p} 
+  \item{nbasisY}{An integer value specifying the number of B-spline basis expansion functions to be used to approximate the functional principal components for the response variable \eqn{Y(t)}. If \code{NULL}, then, \eqn{min(20, p/4)} number of B-spline basis expansion functions are used.}
+  \item{nbasisX}{A vector with length \eqn{M}. Its \eqn{m}-th value denotes the number of B-spline basis expansion functions to be used to approximate the functional principal components for the \eqn{m}-th functional predictor \eqn{X_m(s)}. If \code{NULL}, then, \eqn{min(20, p_m/4)} number of B-spline basis expansion functions are used for each functional predictor, where \eqn{p_m} denotes the number of grid points for \eqn{X_m(s)}.}
+  \item{gpY}{A vector containing the grid points of the functional response \eqn{Y(t)}. If \code{NULL}, then \eqn{p}
   equally spaced time points in te interval [0, 1] are used.}
-  \item{gpX}{A list with length \eqn{M}. The \eqn{m}-th element of \code{gpX} is a vector containing the grid points of 
-the \eqn{m}-th functional predictor \eqn{X_m(s)}. If \code{NULL}, then, \eqn{p_m} equally spaced time points in te interval 
+  \item{gpX}{A list with length \eqn{M}. The \eqn{m}-th element of \code{gpX} is a vector containing the grid points of
+the \eqn{m}-th functional predictor \eqn{X_m(s)}. If \code{NULL}, then, \eqn{p_m} equally spaced time points in te interval
 [0, 1] are used for the \eqn{m}-th functional predictor.}
-  \item{ncompY}{An integer specifying the number of functional principal components to be computed for the functional response \eqn{Y(t)}. If \eqn{NULL}, then, 4 functional principal components are used.}
-  \item{ncompX}{A vector with length \eqn{M}. Its \eqn{m}-th value denotes the number of functional principal components to be computed for the \eqn{m}-th functional predictor \eqn{X_m(s)}. If \code{NULL}, then, 4 principal components are used for each functional predictor.}
+  \item{ncompY}{An integer specifying the number of functional principal components to be computed for the functional response \eqn{Y(t)}. If \code{NULL}, then, the number whose usage results in at least 95\% explained variation is used as the number of principal components.}
+  \item{ncompX}{A vector with length \eqn{M}. Its \eqn{m}-th value denotes the number of functional principal components to be computed for the \eqn{m}-th functional predictor \eqn{X_m(s)}. If \code{NULL}, then, for each functional predictor, the number whose usage results in at least 95\% explained variation is used as the number of principal components.}
 }
 \details{
-When performing a function-on-function regression model based on the functional principal component analysis, first, both the functional response \eqn{Y(t)} and functional predictors \eqn{X_m(s), 1\le m\le M} are decomposed by the functional principal component analysis method: \deqn{Y(t) = \bar{Y}(t) + \sum_{k=1}^K \nu_k \phi_k(t),} \deqn{X_m(s) = \bar{X}_m(s) + \sum_{l=1}^{K_m} \xi_{ml} \psi_{ml}(s),} where \eqn{\bar{Y}(t)} and \eqn{\bar{X}_m(s)} are the mean functions, \eqn{\phi_k(t)} and \eqn{psi_{ml}(s)} are the weight functions, and \eqn{\nu_k = \int (Y(t) - \bar{Y}(t)) \phi_k(t)} and \eqn{\xi_{ml} = \int (X_m(s) - \bar{X}_m(s)) \psi_{ml}(s)} are the principal component scores for the functional response and \eqn{m}-th functional predictor, respectively. Assume that the \eqn{m}-th bivariate regression coefficient function admits the expansion \deqn{\beta_m(s,t) = \sum_{k=1}^K \sum_{l=1}^{K_m} b_{mkl} \phi_k(t) \psi_{ml}(s),} where \eqn{b_{mkl} = \int \int \beta_m(s,t) \phi_k(t) \psi_{ml}(s) dt ds}. Then, the following multiple regression model is obtained for the functional response: \deqn{\hat{Y}(t) = \bar{Y}(s) + \sum_{k=1}^K ( \sum_{m=1}^M \sum_{l=1}^{K_m} b_{mkl} \xi_{ml} ) \phi_k(t).}
+When performing a function-on-function regression model based on the functional principal component analysis, first, both the functional response \eqn{Y(t)} and functional predictors \eqn{X_m(s), 1\le m\le M} are decomposed by the functional principal component analysis method: \deqn{Y(t) = \bar{Y}(t) + \sum_{k=1}^K \nu_k \phi_k(t),} \deqn{X_m(s) = \bar{X}_m(s) + \sum_{l=1}^{K_m} \xi_{ml} \psi_{ml}(s),} where \eqn{\bar{Y}(t)} and \eqn{\bar{X}_m(s)} are the mean functions, \eqn{\phi_k(t)} and \eqn{\psi_{ml}(s)} are the weight functions, and \eqn{\nu_k = \int (Y(t) - \bar{Y}(t)) \phi_k(t)} and \eqn{\xi_{ml} = \int (X_m(s) - \bar{X}_m(s)) \psi_{ml}(s)} are the principal component scores for the functional response and \eqn{m}-th functional predictor, respectively. Assume that the \eqn{m}-th bivariate regression coefficient function admits the expansion \deqn{\beta_m(s,t) = \sum_{k=1}^K \sum_{l=1}^{K_m} b_{mkl} \phi_k(t) \psi_{ml}(s),} where \eqn{b_{mkl} = \int \int \beta_m(s,t) \phi_k(t) \psi_{ml}(s) dt ds}. Then, the following multiple regression model is obtained for the functional response: \deqn{\hat{Y}(t) = \bar{Y}(s) + \sum_{k=1}^K ( \sum_{m=1}^M \sum_{l=1}^{K_m} b_{mkl} \xi_{ml} ) \phi_k(t).}
 
 If \code{model = "full"}, then, all the functional predictor variables are used in the model.
 
@@ -78,7 +78,7 @@ Y <- sim.data$Y
 X <- sim.data$X
 gpY <- seq(0, 1, length.out = 101) # grid points of Y
 gpX <- rep(list(seq(0, 1, length.out = 101)), 5) # grid points of Xs
-model.MM <- rob.ff.reg(Y = Y, X = X, model = "full", emodel = "robust", 
+model.MM <- rob.ff.reg(Y = Y, X = X, model = "full", emodel = "robust",
                        fmodel = "MM", gpY = gpY, gpX = gpX)
 }
 

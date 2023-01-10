@@ -1,5 +1,5 @@
 var.sel <-
-function(Y, X, nbasisY, nbasisX, ncompX = 4, ncompY = 4, gpY, gpX, 
+function(Y, X, nbasisY, nbasisX, ncompX = NULL, ncompY = NULL, gpY, gpX, 
                     emodel = c("classical", "robust"), fmodel = c("MCD", "MLTS", "MM", "S", "tau")){
   emodel <- match.arg(emodel)
   if(emodel != "classical"){
@@ -17,12 +17,15 @@ function(Y, X, nbasisY, nbasisX, ncompX = 4, ncompY = 4, gpY, gpX,
   sco_Y <- PCA_Y$PCAscore
   comp_Y <- PCA_Y$PCAcoef
   mean_Y <- PCA_Y$meanScore
+  ncompYv <- PCA_Y$ncomp
   
   sco_X <- list()
+  ncompXv <- numeric()
   for(ij in 1:np){
     PCA_X <- getPCA(data = X[[ij]], nbasis = nbasisX[ij], ncomp = ncompX,
                         gp = gpX[[ij]], emodel = emodel)
     sco_X[[ij]] <- PCA_X$PCAscore
+    ncompXv[ij] <- PCA_X$ncomp
   }
 
   BIC_individuals <- numeric()
@@ -39,8 +42,8 @@ function(Y, X, nbasisY, nbasisX, ncompX = 4, ncompY = 4, gpY, gpX,
       Yhat[k,] <- eval.fd(model_k, seq(0, 1, length.out = p))
     }
     
-    BIC_individuals[ind] <- BIC.fun(Y = Y, Yfit = Yhat, ncompX = ncompX,
-                                   ncompY = ncompY, emodel = emodel)
+    BIC_individuals[ind] <- BIC.fun(Y = Y, Yfit = Yhat, ncompX = ncompXv,
+                                   ncompY = ncompYv, emodel = emodel)
   }
   BIC_order <- order(BIC_individuals)
   
@@ -66,8 +69,8 @@ function(Y, X, nbasisY, nbasisX, ncompX = 4, ncompY = 4, gpY, gpX,
         Yhat[k,] <- eval.fd(model_k, seq(0, 1, length.out = p))
       }
       
-      BIC_sel[2,f2] <- BIC.fun(Y = Y, Yfit = Yhat, ncompX = ncompX,
-                              ncompY = ncompY, emodel = emodel)
+      BIC_sel[2,f2] <- BIC.fun(Y = Y, Yfit = Yhat, ncompX = ncompXv,
+                              ncompY = ncompYv, emodel = emodel)
     }
     
     BIC_next <- BIC_sel[2,][which.min(BIC_sel[2,])]

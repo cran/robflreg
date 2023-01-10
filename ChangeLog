@@ -1,0 +1,13 @@
+v 1.1
+
+1. Add the MaryRiverFlow dataset
+2. Modified examples
+3. Updates to Arguments in generate.ff.data() and generate.sf.data() to produce outlier-contaminated data
+4. Updates in getPCA() to provide principal components effectively
+5. Updates to Arguments in getPCA.test() to obtain principal component results of a test sample more effectively
+6. Updates in plot_ff_coeffs() to provide image.plot
+7. Updates in rob.ff.reg() to estimate function-on-function regression model more effectively when ncompY = NULL and ncompX = NULL
+8. Updates in rob.sf.reg() to estimate scalar-on-function regression model more effectively when ncomp = NULL
+9. Updates to Arguments in rob.sf.reg() to allow for scalar predictors in the scalar-on-function regression model
+10. Updates to Arguments in predict_sf_regression() to allow for scalar predictors in the prediction of scalar-on-function regression model
+11. Fix typos in the manual

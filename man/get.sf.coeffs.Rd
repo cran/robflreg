@@ -1,7 +1,7 @@
 \name{get.sf.coeffs}
 \alias{get.sf.coeffs}
 \title{Get the estimated regression coefficient functions for scalar-on-function regression model}
-\description{This function is used to obtain the estimated regression coefficient functions \eqn{\beta_m(s)} for scalar-on-function regression model (see the description in \code{\link{rob.sf.reg}} based on output object obtained from \code{\link{rob.sf.reg}}).
+\description{This function is used to obtain the estimated regression coefficient functions \eqn{\beta_m(s)} and the estimated regression coefficients \eqn{\gamma_r} (if \eqn{X.scl \neq NULL}) for scalar-on-function regression model (see the description in \code{\link{rob.sf.reg}} based on output object obtained from \code{\link{rob.sf.reg}}).
 }
 \usage{
 get.sf.coeffs(object)
@@ -13,6 +13,7 @@ get.sf.coeffs(object)
 \value{A list object with the following components:
 \item{gp}{A list with length \eqn{M}. The \eqn{m}-th element of gp is a vector containing the grid points of  the \eqn{m}-th functional predictor \eqn{X_m(s)}.}
 \item{coefficients}{A list with length \eqn{M}. The \eqn{m}-th element of coefficients is a vector of the estimated values of the coefficient function for the \eqn{m}-th functional predictor \eqn{X_m(s)}.}
+\item{scl.coefficients}{A vector consisting of the estimated coefficients of the scalar predictor \eqn{X.scl}.}
 }
 \author{Ufuk Beyaztas and Han Lin Shang}
 \examples{

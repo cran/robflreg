@@ -8,5 +8,6 @@ function(object, b)
     stop("Error!! b should be smaller than", " ", length(n), "!")
   
   return(plot(gp[[b]], coefficients[[b]], type = "l", xlab = "\n Grid point (s)",
-       ylab = "", main = bquote(beta[.(b)](s))))
+       ylab = "", main = bquote(hat(beta)[.(b)](s))))
 }
+

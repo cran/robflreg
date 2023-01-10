@@ -31,22 +31,16 @@ Ufuk Beyaztas and Han Lin Shang
 }
 \examples{
 \donttest{
-set.seed(987)
-sim.data <- generate.ff.data(n.pred = 5, n.curve = 200, n.gp = 101)
+sim.data <- generate.ff.data(n.pred = 5, n.curve = 200, n.gp = 101, out.p = 0.1)
+out.indx <- sim.data$out.indx
 Y <- sim.data$Y
 X <- sim.data$X
 gpY = seq(0, 1, length.out = 101) # grid points of Y
 gpX <- rep(list(seq(0, 1, length.out = 101)), 5) # grid points of Xs
 
-set.seed(123)
-sim.data2 <- generate.ff.data(n.pred = 5, n.curve = 100, n.gp = 101)
-out.index <- sample(1:100, 20)
-Y[out.index,] <- sim.data2$Y[out.index,]
-for(i in 1:5)
-  X[[i]][out.index,] <- sim.data2$X[[i]][out.index,]
 model.MM <- rob.ff.reg(Y = Y, X = X, model = "full", emodel = "robust", fmodel = "MM", 
                        gpY = gpY, gpX = gpX)
 rob.out.detect(object = model.MM, fplot = TRUE)
-sort(out.index)
+sort(out.indx)
 }
 }

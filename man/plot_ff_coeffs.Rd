@@ -1,24 +1,21 @@
 \name{plot_ff_coeffs}
 \alias{plot_ff_coeffs}
-\title{3D plot of bivariate regression coefficient functions of a function-on-function regression model}
-\description{This function is used to obtain 3D plots of bivariate regression coefficient functions of a function-on-function regression model based on output object obtained from \code{\link{get.ff.coeffs}}.
+\title{Image plot of bivariate regression coefficient functions of a function-on-function regression model}
+\description{This function is used to obtain image plots of bivariate regression coefficient functions of a function-on-function regression model based on output object obtained from \code{\link{get.ff.coeffs}}.
 }
 \usage{
-plot_ff_coeffs(object, b, phi, theta, cex.axis)
+plot_ff_coeffs(object, b)
 }
 \arguments{
   \item{object}{The output object of \code{\link{get.ff.coeffs}}.}
   \item{b}{An integer value indicating which regression parameter function to be plotted.}
-  \item{phi}{A numeric value defining the viewing direction.}
-  \item{theta}{A numeric value defining the viewing direction.}
-  \item{cex.axis}{A numeric value defining the size of the tick label.}
 }
 \value{
 No return value, called for side effects.
 }
 \references{
-K. Soetaert (2021) plot3D: Plotting Multi-Dimensional Data. R package version 1.4, 
-URL: https://cran.r-project.org/web/packages/plot3D/index.html.
+D. Nychka and R. Furrer and J. Paige and S. Sain (2021) fields: Tools for spatial data. R package version 14.1,
+URL: https://github.com/dnychka/fieldsRPackage.
 }
 \author{
 Ufuk Beyaztas and Han Lin Shang
@@ -32,5 +29,5 @@ gpX <- rep(list(seq(0, 1, length.out = 101)), 5) # grid points of Xs
 model.fit <- rob.ff.reg(Y, X, model = "full", emodel = "classical", 
                         gpY = gpY, gpX = gpX)
 coefs <- get.ff.coeffs(model.fit)
-plot_ff_coeffs(object = coefs, b = 1, phi = 5, theta = 40, cex.axis = 0.75)
+plot_ff_coeffs(object = coefs, b = 1)
 }

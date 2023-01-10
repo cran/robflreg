@@ -5,8 +5,10 @@ function(data, nbasis, ncomp, gp, emodel = c("classical", "robust")){
     stop("Error!! data must be a matrix!")
   if(!nbasis >= 4)
     stop("Error!! The number of basis functions (nbasis) must be greater than three to apply cubic B-spline basis expansion!")
-  if(!ncomp > 0)
-    stop("Error!! The number of principal components (ncomp) must be greater than or equal to one!")
+  if(!is.null(ncomp)){
+    if(!ncomp > 0)
+      stop("Error!! The number of principal components (ncomp) must be greater than or equal to one!")
+  }
   if(length(gp) != dim(data)[2])
     stop("Error!! The number of columns of data must be equal to the length of grid points!")
   if(!emodel %in% c("classical", "robust"))
@@ -31,6 +33,9 @@ function(data, nbasis, ncomp, gp, emodel = c("classical", "robust")){
     new.data <- sdata %*% sinp_mat
     dcov <- cov(new.data)
     d.eigen <- eigen(dcov)
+    var_prop <- cumsum(d.eigen$values)/sum(d.eigen$values)
+    if(is.null(ncomp))
+      ncomp <- which(var_prop>0.95)[1]
     loads <- d.eigen$vectors[,1:ncomp]
     PCs <- solve(sinp_mat) %*% loads
     colnames(PCs) = 1:ncomp
@@ -48,6 +53,12 @@ function(data, nbasis, ncomp, gp, emodel = c("classical", "robust")){
     mean_coef <- pcaPP::l1median(t(pcaobj$coefs), trace = -1)
     sdata <- scale(t(pcaobj$coefs), center = mean_coef, scale = FALSE) 
     new.data <- sdata %*% sinp_mat
+    if(is.null(ncomp)){
+      dcov <- covPCAproj(new.data)
+      d.eigen <- eigen(dcov$cov)
+      var_prop <- cumsum(d.eigen$values)/sum(d.eigen$values)
+      ncomp <- which(var_prop>0.95)[1]
+    }
     ppur <- PCAproj(new.data, ncomp)
     loads <- ppur$loadings
     PCs <- solve(sinp_mat) %*% loads
@@ -64,5 +75,6 @@ function(data, nbasis, ncomp, gp, emodel = c("classical", "robust")){
       colnames(PCAscore)[i] = paste("Score", i, sep = "")
   }
   return(list(PCAcoef = PCAcoef, PCAscore = PCAscore, meanScore = mean_coef,
-              bs_basis = bs_basis, evalbase = evalbase))
+              bs_basis = bs_basis, evalbase = evalbase, ncomp = ncomp, gp = gp,
+              emodel = emodel))
 }

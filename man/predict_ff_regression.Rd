@@ -17,29 +17,26 @@ An \eqn{n_{test} \times p}-dimensional matrix of predicted functions of the resp
 Ufuk Beyaztas and Han Lin Shang
 }
 \examples{
-set.seed(987)
-sim.data <- generate.ff.data(n.pred = 5, n.curve = 200, n.gp = 101)
+set.seed(2022)
+sim.data <- generate.ff.data(n.pred = 5, n.curve = 200, n.gp = 101, out.p = 0.1)
+out.indx <- sim.data$out.indx
 Y <- sim.data$Y
 X <- sim.data$X
-Y.train <- Y[1:100,]
-Y.test <- Y[101:200,]
+indx.test <- sample(c(1:200)[-out.indx], 60)
+indx.train <- c(1:200)[-indx.test]
+Y.train <- Y[indx.train,]
+Y.test <- Y[indx.test,]
 X.train <- X.test <- list()
 for(i in 1:5){
-  X.train[[i]] <- X[[i]][1:100,]
-  X.test[[i]] <- X[[i]][101:200,]
+  X.train[[i]] <- X[[i]][indx.train,]
+  X.test[[i]] <- X[[i]][indx.test,]
 }
 gpY = seq(0, 1, length.out = 101) # grid points of Y
 gpX <- rep(list(seq(0, 1, length.out = 101)), 5) # grid points of Xs
 
-set.seed(123)
-sim.data2 <- generate.ff.data(n.pred = 5, n.curve = 100, n.gp = 101)
-out.index <- sample(1:100, 10)
-Y.train[out.index,] <- sim.data2$Y[out.index,]
-for(i in 1:5)
-  X.train[[i]][out.index,] <- sim.data2$X[[i]][out.index,]
-model.MM <- rob.ff.reg(Y = Y.train, X = X.train, model = "full", emodel = "robust", 
+model.MM <- rob.ff.reg(Y = Y.train, X = X.train, model = "full", emodel = "robust",
                        fmodel = "MM", gpY = gpY, gpX = gpX)
 pred.MM <- predict_ff_regression(object = model.MM, Xnew = X.test)
-round(mean((Y.test - pred.MM)^2), 4)        # 0.9318 (MM method)
+round(mean((Y.test - pred.MM)^2), 4)        # 0.5925 (MM method)
 }
 
