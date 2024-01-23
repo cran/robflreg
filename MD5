@@ -1,5 +1,5 @@
-fc1cb4ec3eacc5044c35841724f47c40 *ChangeLog
-7e6312470eb0a0374ea29ac3b89521ef *DESCRIPTION
+99dc01731d12aa2265bda29f22683c2e *ChangeLog
+5cd565850790d25205f9d0f1847678cd *DESCRIPTION
 aba6bcd8b2d949e290030b04b00772d8 *NAMESPACE
 89de91f16cd822810e25d4c380b9b803 *R/BIC.fun.R
 8b3c8bee9f800f5c2701200d6df9a786 *R/FastTau.R
@@ -44,8 +44,6 @@ d4a74c965289dbc32e2d8df669f8ddf8 *R/taumlmm.R
 d2ad9ca6bb1d0f25f8bc8aea48d0903f *R/var.sel.R
 e8973aae7f5f532ad203c0d4a330a61c *R/weight.R
 603b68f0b5da4ac8be013df958948e9f *data/MaryRiverFlow.rda
-ecafc896b100fcf0a1a3c96787854aeb *inst/CITATION
-6e6e973f9b56b8b33f364851b31ef64b *inst/doc/robflreg.pdf
 b53bf9dcdca870bc9b372921cf846217 *man/MaryRiverFlow.Rd
 b47dd10b8b70b64dbaf1cafa1b8dbd45 *man/generate.ff.data.Rd
 05f972fcb7aeea79ae4b01b76f2c7c21 *man/generate.sf.data.Rd
@@ -60,8 +58,4 @@ c7b3ae57f9b3948ceaec814c98558740 *man/getPCA.Rd
 93d4c40dd7435d4c65b83e16b4cd9ebf *man/rob.ff.reg.Rd
 fb6be250fe53205ee994d6689f949052 *man/rob.out.detect.Rd
 c9dc0e587dbf9c36d9a1deb437459b98 *man/rob.sf.reg.Rd
-7a7d1e902cb9ab4ac528ce76d35e101a *man/robflreg-package.Rd
-dad57814e42691431915d6cd345793d2 *vignettes/master.bib
-b9730c916d2acf73ffdf61067e12daaf *vignettes/robflreg-020.pdf
-c84e68ff2fce78d5ae46fa6652caaddd *vignettes/robflreg-021.pdf
-b19c583586609fbba990f1df05a0ef39 *vignettes/robflreg.Rnw
+c8f417658e116d6a9416d47fa8856674 *man/robflreg-package.Rd
