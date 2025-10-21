@@ -1,3 +1,8 @@
+v 1.3
+
+1. Add the predict_sffr2SLS, sff_dgp, sffr_pen2SLS functions in the Statistics and Computing
+2. Add the fpqr_dgp, fpqr, predict_fpqr functions in the Journal of Applied Statistics 
+
 v 1.2
 
 1. Remove the vignette as it appeared at https://journal.r-project.org/articles/RJ-2023-033/

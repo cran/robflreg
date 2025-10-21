@@ -11,7 +11,13 @@ export(
 "get.sf.coeffs",
 "plot_sf_coeffs",
 "predict_sf_regression",
-"rob.sf.reg"
+"rob.sf.reg",
+"predict_sffr2SLS",
+"sff_dgp",
+"sffr_pen2SLS",
+"fpqr_dgp",
+"fpqr",
+"predict_fpqr"
 )
 
 import(fda)
@@ -35,4 +41,9 @@ importFrom("fields", "image.plot")
 importFrom("expm", "sqrtm")
 importFrom("mvtnorm", "rmvnorm")
 importFrom("fda.usc", "inprod.fdata")
+importFrom("methods", "as")
+importFrom("Matrix", "bdiag")
+importFrom("stats", "rchisq", "rt", "var")
+importFrom("cvTools", "cvFolds")
+importFrom("quantreg", "rq")
 
